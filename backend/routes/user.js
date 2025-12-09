@@ -5,27 +5,19 @@ const { Router } = require('express')
 const mongoose = require('mongoose')
 const userRouter = Router()
 const bcrypt = require('bcrypt')
-const session = require('express-session')
-const { userModel, todoModel } = require('../config/db')
-const MongoStore = require('connect-mongo').default
 
-app.use(session({
-    secret: process.env.SECRET_SESSION,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 1000 * 60 * 60, 
-        httpOnly: true,
-    },
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URI
-    })
-}));
+const { userModel, todoModel } = require('../config/db')
+
+const dotenv = require('dotenv')
+require('dotenv').config();
+
+
+
 
 userRouter.post('/signup', async (req, res) => {
     const requiredInput = z.object({
         email: z.string().email(),
-        name: z.string().min(10).max(30),
+        name: z.string().min(3).max(30),
         password: z.string().min(8).max(20)
             .refine(v => [...v].some(c => c >= 'A' && c <= 'Z'), {
                 message: "Password must contain at least one uppercase letter"

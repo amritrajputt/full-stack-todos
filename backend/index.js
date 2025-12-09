@@ -3,13 +3,26 @@ const app = express()
 app.use(express.json())
 require('dotenv').config()
 const mongoose = require('mongoose')
-
+const MongoStore = require('connect-mongo').default
 const cors = require("cors");
-app.use(cors())
+const session = require('express-session')
+
 app.use(cors({
   origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE","PATCH"],
   credentials: true
+}));
+app.use(session({
+    secret: process.env.SECRET_SESSION,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60, 
+        httpOnly: true,
+    },
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI
+    })
 }));
 
 const {userRouter} = require('./routes/user')
