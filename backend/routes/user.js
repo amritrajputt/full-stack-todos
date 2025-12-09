@@ -5,13 +5,9 @@ const { Router } = require('express')
 const mongoose = require('mongoose')
 const userRouter = Router()
 const bcrypt = require('bcrypt')
-
 const { userModel, todoModel } = require('../config/db')
-
 const dotenv = require('dotenv')
 require('dotenv').config();
-
-
 
 
 userRouter.post('/signup', async (req, res) => {
@@ -74,6 +70,10 @@ userRouter.post('/signin', async (req, res) => {
         message: "Logged in successfully",
         sessionId: req.session.id   
     });
+})
+
+userRouter.get('/all',async(req,res) => {
+
 })
 
 module.exports = {

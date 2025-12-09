@@ -8,16 +8,18 @@ const cors = require("cors");
 const session = require('express-session')
 
 app.use(cors({
-  origin: "http://localhost:5173",
-  methods: ["GET", "POST", "PUT", "DELETE","PATCH"],
-  credentials: true
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    credentials: true
 }));
+
+
 app.use(session({
     secret: process.env.SECRET_SESSION,
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 1000 * 60 * 60, 
+        maxAge: 1000 * 60 * 60,
         httpOnly: true,
     },
     store: MongoStore.create({
@@ -25,16 +27,16 @@ app.use(session({
     })
 }));
 
-const {userRouter} = require('./routes/user')
+const { userRouter } = require('./routes/user')
 app.use('/api/v1/user', userRouter)
 
-const connectDB = async() => {
-try {
-    await mongoose.connect(process.env.MONGO_URI)
-    console.log("MONGODB is connected");
-} catch (error) {
-    console.log("Failed to connect to the database", error)
-}
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URI)
+        console.log("MONGODB is connected");
+    } catch (error) {
+        console.log("Failed to connect to the database", error)
+    }
 }
 
 app.listen(3000, () => {
