@@ -12,7 +12,10 @@ app.use(cors({
   credentials: true
 }));
 
-const main = async() => {
+const {userRouter} = require('./routes/user')
+app.use('/api/v1/user', userRouter)
+
+const connectDB = async() => {
 try {
     await mongoose.connect(process.env.MONGO_URI)
     console.log("MONGODB is connected");
@@ -24,4 +27,5 @@ try {
 app.listen(3000, () => {
     console.log("server is running...");
 })
-main()
+
+connectDB()
