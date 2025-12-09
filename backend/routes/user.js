@@ -1,5 +1,3 @@
-const express = require('express')
-const app = express()
 const { z } = require('zod')
 const { Router } = require('express')
 const mongoose = require('mongoose')
@@ -8,7 +6,7 @@ const bcrypt = require('bcrypt')
 const { userModel, todoModel } = require('../config/db')
 const dotenv = require('dotenv')
 require('dotenv').config();
-
+const { userMiddleware } = require('../middleware/usermiddleware')
 
 userRouter.post('/signup', async (req, res) => {
     const requiredInput = z.object({
@@ -61,19 +59,24 @@ userRouter.post('/signin', async (req, res) => {
     const user = await userModel.findOne({ email })
     const checkPassword = await bcrypt.compare(password, user.password)
     if (!checkPassword) {
-           return res.status(403).json({
+        return res.status(403).json({
             message: "Incorrect credentials"
         });
     }
     req.session.userId = user._id
-      res.json({
+    res.json({
         message: "Logged in successfully",
-        sessionId: req.session.id   
+        sessionId: req.session.id
     });
 })
 
-userRouter.get('/all',async(req,res) => {
-
+userRouter.get('/all', userMiddleware, async (req, res) => {
+    const userId = req.userId
+    const mytodo = await todoModel.find({ userId })
+    res.json({
+        message: "Here is your all todos",
+        todos: mytodo
+    })
 })
 
 module.exports = {
