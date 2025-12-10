@@ -28,7 +28,9 @@ app.use(session({
 }));
 
 const { userRouter } = require('./routes/user')
+const { todoRouter } = require('./routes/todo')
 app.use('/api/v1/user', userRouter)
+app.use('/api/v1/todo', todoRouter)
 
 const connectDB = async () => {
     try {
