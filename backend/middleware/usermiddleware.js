@@ -4,7 +4,6 @@ const userMiddleware = (req, res, next) => {
             message: "User not authenticated"
         });
     }
-    req.userId = req.session.userId;
     next();
 };
 

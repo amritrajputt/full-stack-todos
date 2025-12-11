@@ -1,10 +1,8 @@
 const { z } = require('zod')
 const { Router } = require('express')
-const mongoose = require('mongoose')
 const userRouter = Router()
 const bcrypt = require('bcrypt')
 const { userModel, todoModel } = require('../config/db')
-const dotenv = require('dotenv')
 require('dotenv').config();
 const { userMiddleware } = require('../middleware/usermiddleware')
 
