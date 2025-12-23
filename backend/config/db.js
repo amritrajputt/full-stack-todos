@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
-const { email, string } = require('zod')
 dotenv.config()
 
 const Schema = mongoose.Schema

@@ -6,7 +6,6 @@ const { userMiddleware } = require('../middleware/usermiddleware')
 todoRouter.post('/addtodo', userMiddleware, async (req, res) => {
     const { title, description, status } = req.body
     const userId = req.session.userId;
-    // console.log(userId)
     if (!title || !description) {
         res.status(400).json({
             message: "Missing fields"
@@ -18,7 +17,6 @@ todoRouter.post('/addtodo', userMiddleware, async (req, res) => {
         userId,
         status: status || false
     })
-    // console.log(todo)
     res.json({ message: "Todo added", todo })
 })
 
