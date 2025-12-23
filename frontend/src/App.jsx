@@ -18,7 +18,8 @@ function App() {
         "http://localhost:3000/api/v1/todo/addtodo", {
         title: title,
         description: description,
-      }
+      },
+      { withCredentials: true }
       )
       console.log("Added:", response.data);
     } catch (error) {
@@ -36,6 +37,8 @@ function App() {
         </div>
       </div>
       <TodoItem />
+      <TodoList />
+      
     </>
   )
 }
