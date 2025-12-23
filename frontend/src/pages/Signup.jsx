@@ -5,14 +5,24 @@ function Signup() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-    function signup() {
-        const data = {
-            name,
-            email,
-            password
+    async function signup() {
+        try {
+            const res = await axios.post(
+                "http://localhost:3000/api/v1/user/signup",
+                {
+                    name: name,
+                    email: email,
+                    password: password
+                }
+            )
+            console.log("success", res.data);
+            setName("")
+            setEmail("")
+            setPassword("")
+        } catch (error) {
+            console.error("Error", error.res?.data || error.message);
         }
-        console.log(data);
-        
+
     }
     return (
         <div className='flex justify-center h-full align-center' >
