@@ -25,6 +25,9 @@ function Signin() {
         }
 
     }
+    function Register(){
+        navigate("/signup")
+    }
     return (
         <div className='flex justify-center h-full items-center' >
             <div>
@@ -32,6 +35,7 @@ function Signin() {
                 <input className='rounded-lg p-2 m-2 border-2 border-slate-400' type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='email' /><br />
                 <input className='rounded-lg p-2 m-2 border-2 border-slate-400' type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='password' /><br />
                 <button className='rounded-lg p-2 m-2 border-2 hover:bg-blue-600 bg-blue-500 text-white border-blue-500' onClick={signin}>Signin</button>
+                  <button className='rounded-lg p-2 m-2 border-2 hover:bg-blue-600 bg-blue-500 text-white border-blue-500' onClick={Register}>Register</button>
             </div>
         </div>
     )

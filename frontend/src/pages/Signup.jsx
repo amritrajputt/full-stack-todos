@@ -25,7 +25,9 @@ function Signup() {
         } catch (error) {
             console.error("Error", error.res?.data || error.message);
         }
-
+    }
+    function redirect(){
+        navigate("/signin")
     }
     return (
         <div className='flex justify-center h-full align-center' >
@@ -35,6 +37,8 @@ function Signup() {
                 <input className='rounded-lg p-2 m-2 border-2 border-slate-400' type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='email' /><br />
                 <input className='rounded-lg p-2 m-2 border-2 border-slate-400' type='text' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='password' /><br />
                 <button className='rounded-lg p-2 m-2 border-2 hover:bg-blue-600 bg-blue-500 text-white border-blue-500' onClick={signup}>Signup</button>
+                <button className='rounded-lg p-2 m-2 border-2 hover:bg-blue-600 bg-blue-500 text-white border-blue-500' onClick={redirect}>Already a user</button>
+                
             </div>
         </div>
     )

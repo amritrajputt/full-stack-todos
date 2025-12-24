@@ -5,7 +5,7 @@ const { userMiddleware } = require('../middleware/usermiddleware')
 
 todoRouter.post('/addtodo', userMiddleware, async (req, res) => {
     const { title, description, status } = req.body
-    const userId = req.session.userId;
+    const userId = req.userId;
     if (!title || !description) {
         res.status(400).json({
             message: "Missing fields"
@@ -22,7 +22,7 @@ todoRouter.post('/addtodo', userMiddleware, async (req, res) => {
 
 todoRouter.delete('/deletetodo/:id', userMiddleware, async (req, res) => {
     try {
-        const userId = req.session.userId;
+        const userId = req.userId;
         const todoid = req.params.id;
         const todo = await todoModel.findOneAndDelete({ _id: todoid, userId })
         if (!todo) {
@@ -36,7 +36,7 @@ todoRouter.delete('/deletetodo/:id', userMiddleware, async (req, res) => {
 
 todoRouter.patch('/updatetodo/:id', userMiddleware, async (req, res) => {
     try {
-        const userId = req.session.userId
+        const userId = req.userId
         const id = req.params.id
         const { title, description } = req.body
         const updatedTodo = await todoModel.findOneAndUpdate(

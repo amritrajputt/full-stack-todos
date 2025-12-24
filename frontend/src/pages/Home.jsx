@@ -52,7 +52,7 @@ const [todos, setTodos] = useState([]);
       );
 
       console.log("Todo deleted:", id);
-      setTodos(todos.filter(todo => todo.id != id))
+      setTodos(todos.filter(todo => todo._id != id))
     } catch (err) {
       console.error(err.response?.data || err.message);
     }
@@ -66,12 +66,12 @@ const [todos, setTodos] = useState([]);
     );
 
     setTodos(
-      todos.map(todo =>
-        todo._id === id ? res.data.updatedTodo : todo
-      )
-    );
-  }
+  todos.map(todo =>
+    todo._id === id ? res.data.updatedTodo : todo
+  )
+);
 
+  }
 
     return (
         <>
