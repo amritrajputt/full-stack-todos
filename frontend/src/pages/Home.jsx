@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import TodoItem from '../components/TodoItem'
 import TodoList from '../components/TodoList'
 import axios from 'axios'
@@ -6,7 +6,7 @@ import axios from 'axios'
 function Home() {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState([]);
 
 
     useEffect(() => {
@@ -35,7 +35,7 @@ const [todos, setTodos] = useState([]);
             },
                 { withCredentials: true }
             )
-            setTodos([...todos,res.data.todo])
+            setTodos([...todos, res.data.todo])
             setTitle("")
             setDescription("")
         } catch (error) {
@@ -45,33 +45,32 @@ const [todos, setTodos] = useState([]);
     }
 
     async function deletetodo(id) {
-  try {
-      await axios.delete(
-        `http://localhost:3000/api/v1/todo/deletetodo/${id}`,
-        { withCredentials: true }
-      );
+        try {
+            await axios.delete(
+                `http://localhost:3000/api/v1/todo/deletetodo/${id}`,
+                { withCredentials: true }
+            );
 
-      console.log("Todo deleted:", id);
-      setTodos(todos.filter(todo => todo._id != id))
-    } catch (err) {
-      console.error(err.response?.data || err.message);
+            console.log("Todo deleted:", id);
+            setTodos(todos.filter(todo => todo._id != id))
+        } catch (err) {
+            console.error(err.response?.data || err.message);
+        }
     }
+
+    async function updatetodo(id, newTitle) {
+        const res = await axios.patch(
+            `http://localhost:3000/api/v1/todo/updatetodo/${id}`,
+            { title: newTitle },
+            { withCredentials: true }
+        );
+
+        setTodos(
+            todos.map(todo =>
+                todo._id === id ? res.data.updatedTodo : todo
+            )
+        );
     }
-
-      async function updatetodo(id, newTitle) {
-    const res = await axios.patch(
-      `http://localhost:3000/api/v1/todo/updatetodo/${id}`,
-      { title: newTitle },
-      { withCredentials: true }
-    );
-
-    setTodos(
-  todos.map(todo =>
-    todo._id === id ? res.data.updatedTodo : todo
-  )
-);
-
-  }
 
     return (
         <>
@@ -83,9 +82,7 @@ const [todos, setTodos] = useState([]);
                     <button className="rounded-lg p-2 mb-3 bg-blue-500 text-white border  border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={addtodo}>Add-todo</button>
                 </div>
             </div>
-            
             <TodoList todos={todos} onDelete={deletetodo} onUpdate={updatetodo} setTodos={setTodos} />
-
         </>
     )
 }
