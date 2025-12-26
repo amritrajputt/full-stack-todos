@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import TodoItem from './TodoItem';
+import { useContext } from 'react';
+import Context from '../context/Context';
 
-function TodoList({ todos, setTodos,onDelete, onUpdate }) {
-    
+function TodoList() {
+    const {todos}= useContext(Context)
     return (
         <div>
             {todos.map(todo => (
@@ -11,10 +13,7 @@ function TodoList({ todos, setTodos,onDelete, onUpdate }) {
                     key={todo._id}
                     id={todo._id}
                     title={todo.title}
-                    todos={todos}
-                    setTodos={setTodos}
-                    onDelete={onDelete}
-                    onUpdate={onUpdate}
+                    
                 />
             ))}
         </div>

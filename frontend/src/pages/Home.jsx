@@ -1,13 +1,14 @@
-import React, { useState, useEffect ,useRef} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import TodoItem from '../components/TodoItem'
 import TodoList from '../components/TodoList'
 import axios from 'axios'
+import Context from '../context/Context'
 
 function Home() {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [todos, setTodos] = useState([]);
-const inputRef = useRef()
+    const inputRef = useRef()
 
 
     useEffect(() => {
@@ -88,7 +89,16 @@ const inputRef = useRef()
                     <button className="rounded-lg p-2 mb-3 bg-blue-500 text-white border  border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={addtodo}>Add-todo</button>
                 </div>
             </div>
-            <TodoList todos={todos} onDelete={deletetodo} onUpdate={updatetodo} setTodos={setTodos} />
+            <Context.Provider
+                value={{
+                    todos,
+                    setTodos,
+                    onDelete: deletetodo,
+                    onUpdate: updatetodo,
+                }}
+            >
+                <TodoList />
+            </Context.Provider>
         </>
     )
 }

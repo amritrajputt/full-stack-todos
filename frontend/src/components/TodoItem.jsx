@@ -1,9 +1,11 @@
-import React, { useState ,useRef,useEffect} from 'react'
+import React, { useState ,useRef,useEffect,useContext} from 'react'
+import Context from '../context/Context';
 
-function TodoItem({id, title, onDelete, onUpdate  }) {
+function TodoItem({id, title}) {
     const [isEditing, setIsEditing] = useState(false);
     const [newTitle, setNewTitle] = useState(title);
    const inputRef = useRef(null);
+const { onDelete, onUpdate } = useContext(Context);
 
 useEffect(() => {
   if (isEditing && inputRef.current) {
