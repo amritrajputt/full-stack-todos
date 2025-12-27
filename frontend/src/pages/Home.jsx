@@ -89,10 +89,10 @@ function Home() {
                     <button className="rounded-lg p-2 mb-3 bg-blue-500 text-white border  border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={addtodo}>Add-todo</button>
                 </div>
             </div>
+
             <Context.Provider
                 value={{
                     todos,
-                    setTodos,
                     onDelete: deletetodo,
                     onUpdate: updatetodo,
                 }}
