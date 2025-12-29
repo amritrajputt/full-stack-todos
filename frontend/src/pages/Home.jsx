@@ -80,8 +80,8 @@ function Home() {
     }
 
     return (
-        
-        <>
+
+        <div>
             <div className='flex justify-center items-center'>
                 <div >
                     <h2 className='text-4xl p-6 m-2'>Add todo</h2>
@@ -100,7 +100,7 @@ function Home() {
             >
                 <TodoList />
             </Context.Provider>
-        </>
+        </div>
     )
 }
 
